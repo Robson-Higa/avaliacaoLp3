@@ -23,13 +23,9 @@ const schema = new Schema<Show>({
 export const ShowModel = model<Show>("Show", schema);
 
 export const validateShowInputs = (showObj: any) => {
-  const { id, title, premiere, language, mainGenre } = showObj;
+  const { title, premiere, language, mainGenre } = showObj;
 
   const errorMessages: string[] = [];
-
-  if (!id) {
-    errorMessages.push("ID cannot be empty");
-  }
 
   if (!title) {
     errorMessages.push("Title cannot be empty");
