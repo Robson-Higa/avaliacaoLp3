@@ -12,7 +12,7 @@ export default class ShowController {
   async save(req: Request, res: Response) {
     const errorMessages = validateShowInputs(req.body);
 
-    if (errorMessages.length === 0) {
+    if (errorMessages == true) {
       const { title, isRunning, language, mainGenre, posterUrl } = req.body;
 
       const show = new ShowModel({
@@ -27,7 +27,7 @@ export default class ShowController {
       return res.status(201).json({ show: savedShow });
     }
 
-    return res.status(400).json({ errorMessages });
+    return res.status(400).json({ "error": "At least one mandatory field was not informed"});
   }
 
   async findByTitle(req: Request, res: Response) {

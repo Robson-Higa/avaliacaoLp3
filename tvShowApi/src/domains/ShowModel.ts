@@ -22,32 +22,11 @@ const schema = new Schema<Show>({
 
 export const ShowModel = model<Show>("Show", schema);
 
-export const validateShowInputs = (showObj: any) => {
+export const validateShowInputs = (showObj: any): boolean => {
   const { title, premiere, language, mainGenre } = showObj;
 
-  const errorMessages: string[] = [];
+  const errorMessages = ( !title || !premiere.match(/^\d{4}-\d{2}-\d{2}$/) || isNaN(new Date(premiere).getTime()) || !language || !mainGenre
+);
 
-  if (!title) {
-    errorMessages.push("Title cannot be empty");
-  }
-
-  if (premiere.match(/^\d{4}-\d{2}-\d{2}$/)) {
-    const premiereObj = new Date(premiere);
-
-    if (!premiereObj) {
-      errorMessages.push("Premiere cannot be empty");
-    }
-  } else {
-    errorMessages.push("Premiere must follow pattern YYYY-MM-DD");
-  }
-
-  if (!language) {
-    errorMessages.push("Language cannot be empty");
-  }
-
-  if (!mainGenre) {
-    errorMessages.push("Main Genre cannot be empty");
-  }
-
-  return errorMessages;
+return errorMessages
 };
